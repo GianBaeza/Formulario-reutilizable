@@ -1,20 +1,24 @@
 import { useFormContext } from "react-hook-form";
 import ComponentePorTipo from "../hooks/useFormComponentePorTipo";
-import type { CampoFormulario } from "../interface/interface";
+import type { FormularioDefinicion } from "../interface/interface";
 
 interface FormProps {
-  objetoForm: Record<string, CampoFormulario>;
-  handleSubmitForm: (data: Record<string, any>) => void;
+  objetoForm: FormularioDefinicion;
+  handleSubmitForm: (data: Record<string, unknown>) => void;
 }
 export default function Form({ objetoForm, handleSubmitForm }: FormProps) {
   const { handleSubmit } = useFormContext();
   return (
     <form onSubmit={handleSubmit(handleSubmitForm)}>
-      {Object.entries(objetoForm).map((campo, i) => {
-        const { component } = campo[1];
+      {Object.entries(objetoForm).map(([key, campo]) => {
+        const componente = campo.component;
 
         return (
-          <ComponentePorTipo key={i} tipo={component as string} {...campo[1]} />
+          <ComponentePorTipo
+            key={key}
+            tipo={componente as "select" | "input" | "combo"}
+            {...campo}
+          />
         );
       })}
       <input type="submit" />

@@ -2,10 +2,7 @@ import { useFormContext } from "react-hook-form";
 
 interface SelectComponentsProps
   extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  options: Array<{
-    value: string;
-    label: string;
-  }>;
+  options?: { value: string; label: string }[];
   tipo?: string;
   name?: string;
   type?: string;
@@ -18,10 +15,7 @@ interface SelectComponentsProps
   props?: React.SelectHTMLAttributes<HTMLSelectElement>;
 }
 
-export default function SelectComponents({
-  options,
-  ...props
-}: SelectComponentsProps) {
+export default function SelectComponents({ ...props }: SelectComponentsProps) {
   const {
     register,
     formState: { errors },
@@ -29,7 +23,10 @@ export default function SelectComponents({
   return (
     <>
       <select {...props} {...register(props.name || "")}>
-        {options.map((option) => (
+        <option value="" disabled>
+          Seleccione {props.name}
+        </option>
+        {props.options?.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
           </option>

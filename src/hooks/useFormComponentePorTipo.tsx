@@ -1,21 +1,9 @@
+import type { ComponentePorTipoProps } from "../interface/interface";
 import LabelInputComponents from "../ui/LabelInputComponents";
 import SelectComponents from "../ui/SelectComponents";
 
-interface ComponentePorTipoProps {
-  tipo: string;
-  name: string;
-  type?: string;
-  label?: string;
-  placeholder?: string;
-  tooltip?: string;
-  maxLength?: number;
-  component?: React.ReactNode;
-  required?: boolean;
-}
-
 const ComponentePorTipo = ({
   tipo,
-  name,
   type,
   label,
   placeholder,
@@ -25,54 +13,46 @@ const ComponentePorTipo = ({
   required,
   ...props
 }: ComponentePorTipoProps) => {
-  switch (tipo) {
-    case "select":
-      return (
-        <SelectComponents
-          name={name}
-          label={label}
-          tooltip={tooltip}
-          required={required}
-          options={[
-            { value: "opcion1", label: "Opción 1" },
-            { value: "opcion2", label: "Opción 2" },
-          ]}
-          {...props}
-        />
-      );
-    case "input":
-      return (
-        <LabelInputComponents
-          tipo={tipo}
-          name={name}
-          type={type as string}
-          label={label}
-          placeholder={placeholder}
-          tooltip={tooltip}
-          maxLength={maxLength}
-          component={component}
-          required={required}
-          {...props}
-        />
-      );
-    case "combo": {
-      return (
-        <SelectComponents
-          name={name}
-          label={label}
-          tooltip={tooltip}
-          required={required}
-          options={[
-            { value: "opcion1", label: "Opción 1" },
-            { value: "opcion2", label: "Opción 2" },
-          ]}
-          {...props}
-        />
-      );
-    }
-    default:
-      return <span>Tipo de componente no soportado</span>;
+  const { name } = props;
+  const componentes = {
+    // SE CAMBIO EL SWITCH POR UN OBJETO ENTONCES SOLAMENTE RETORNAMOS LO QUE NECESITAMOS SEGUN EL TIPOP
+    select: (
+      <SelectComponents
+        name={name}
+        label={label}
+        tooltip={tooltip}
+        required={required}
+        {...props}
+      />
+    ),
+    input: (
+      <LabelInputComponents
+        tipo={tipo}
+        name={name ?? ""}
+        type={type as string}
+        label={label}
+        placeholder={placeholder}
+        tooltip={tooltip}
+        maxLength={maxLength}
+        component={component}
+        required={required}
+        {...props}
+      />
+    ),
+    combo: (
+      <SelectComponents
+        name={name}
+        label={label}
+        tooltip={tooltip}
+        required={required}
+        {...props}
+      />
+    ),
+  };
+  if (!componentes[tipo]) {
+    console.warn(`Tipo de componente no reconocido: ${tipo}`);
   }
+  return componentes[tipo] || null;
 };
 
 export default ComponentePorTipo;

@@ -7,6 +7,7 @@ export const Formulario_Becario = {
     tooltip: "Seleccione un tipo de documento",
     component: "select",
     required: true,
+    options: [],
   },
   numero_documento: {
     name: "numero_documento",
@@ -45,6 +46,7 @@ export const Formulario_Becario = {
     tooltip: "Ingrese nacionalidad",
     component: "combo",
     required: true,
+    options: [],
   },
   municipio: {
     name: "municipio",
@@ -54,6 +56,7 @@ export const Formulario_Becario = {
     tooltip: "Ingrese el municipio",
     component: "combo",
     required: true,
+    options: [],
   },
   calle: {
     name: "calle",
@@ -101,6 +104,7 @@ export const Formulario_Becario = {
     tooltip: "Seleccione el sexo",
     component: "select",
     required: true,
+    options: [],
   },
   correo_electronico: {
     name: "correo_electronico",
@@ -120,6 +124,7 @@ export const Formulario_Becario = {
     tooltip: "Ingrese la localidad",
     component: "combo",
     required: true,
+    options: [],
   },
   entre1: {
     name: "entre1",
@@ -167,6 +172,7 @@ export const Formulario_Becario = {
     tooltip: "Categoría",
     component: "select",
     required: true,
+    options: [],
   },
   resolucion_alta: {
     name: "resolucion_alta",

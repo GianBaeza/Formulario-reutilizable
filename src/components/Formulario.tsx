@@ -1,13 +1,13 @@
 import { FormProvider, useForm } from "react-hook-form";
 import Form from "./Form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { CampoFormulario } from "../interface/interface";
+import type { FormularioDefinicion } from "../interface/interface";
 import type { ZodType } from "zod";
 import { useEffect } from "react";
 
 interface FormularioProps {
-  objetoForm: Record<string, CampoFormulario>;
-  handleSubmitForm: (data: Record<string, any>) => void;
+  objetoForm: FormularioDefinicion;
+  handleSubmitForm: (data: Record<string, unknown>) => void;
   schema: ZodType<any, any>;
   datosDefault?: Record<string, any> | undefined;
 }
@@ -25,7 +25,9 @@ export default function Formulario({
   const { reset } = methods;
 
   useEffect(() => {
-    reset(datosDefault);
+    if (datosDefault) {
+      reset(datosDefault); // SI HAY DATOS POR DEFECTOS LOS SETEA SIEMPRE.
+    }
   }, [datosDefault, reset]);
 
   return (

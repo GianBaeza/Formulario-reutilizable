@@ -16,7 +16,8 @@ export default function LabelInputComponents({ ...props }: LabelInputProps) {
   const {
     register,
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext(); // CONSUMIMOS DESDE EL CONTEXTO NATIVO PARA EVITAR PROS  Y RERENDERS  TODO ESTO ESTA ENVUELTO EN UN PROVIDER QUE SE ENCUENTA
+  // EN  COMPONENTE FORMULARIO.
   return (
     <label htmlFor={props.placeholder}>
       {props.placeholder || ""}:
